@@ -9,7 +9,7 @@
 hs_err_pid*
 
 # gwt caches and compiled units #
-war/[gwt project name]/
+#war/[gwt project name]/
 gwt-unitCache/
 test-classes/
 www-test/
