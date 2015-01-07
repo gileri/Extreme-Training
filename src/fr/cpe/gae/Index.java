@@ -19,15 +19,15 @@ public class Index extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		MemcacheService cache = MemcacheServiceFactory.getMemcacheService();
-		String description = (String) cache.get("motd");
-		if (description == null){
+		String message = (String) cache.get("motd");
+		if (message == null){
 			DatastoreService store = DatastoreServiceFactory.getDatastoreService();
 			Filter f = new FilterPredicate("type", Query.FilterOperator.EQUAL,"motd");
 			Query q = new Query("Messages").setFilter(f);
             PreparedQuery pq = store.prepare(q);
-            String message = (String) pq.asSingleEntity().getProperty("content");
-            resp.getWriter().println(message);
+            message = (String) pq.asSingleEntity().getProperty("content");
             cache.put("motd", message);
 		}
+		resp.getWriter().println(message);
 	}
 }
