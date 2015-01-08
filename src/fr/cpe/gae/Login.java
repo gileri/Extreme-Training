@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 @SuppressWarnings("serial")
 public class Login extends HttpServlet {
@@ -22,8 +25,6 @@ public class Login extends HttpServlet {
 		openIdProviders = new HashMap<String, String>();
 		openIdProviders.put("Google", "https://www.google.com/accounts/o8/id");
 		openIdProviders.put("Yahoo", "yahoo.com");
-		openIdProviders.put("MySpace", "myspace.com");
-		openIdProviders.put("AOL", "aol.com");
 		openIdProviders.put("MyOpenId.com", "myopenid.com");
 	}
 
@@ -32,25 +33,34 @@ public class Login extends HttpServlet {
 			throws IOException {
 		UserService userService = UserServiceFactory.getUserService();
 		User user = userService.getCurrentUser(); // or req.getUserPrincipal()
-		Set<String> attributes = new HashSet();
+		Set<String> attributes = new HashSet<String>();
+		Gson gson = GSonFactory.getGsonInstance();
 
 		resp.setContentType("text/html");
 		PrintWriter out = resp.getWriter();
 
 		if (user != null) {
-			out.println("Hello <i>" + user.getNickname() + "</i>!");
-			out.println("[<a href=\""
-					+ userService.createLogoutURL(req.getRequestURI())
-					+ "\">sign out</a>]");
+			JsonObject j = new JsonObject();
+			j.addProperty("name", user.getNickname());
+			j.addProperty("logout", userService.createLogoutURL(req.getRequestURI()));
+			
+			out.write(gson.toJson(j));
 		} else {
+			JsonArray user_auth = new JsonArray();
+			
 			out.println("Hello world! Sign in at: ");
 			for (String providerName : openIdProviders.keySet()) {
 				String providerUrl = openIdProviders.get(providerName);
-				String loginUrl = userService.createLoginURL(
+				String loginURL = userService.createLoginURL(
 						req.getRequestURI(), null, providerUrl, attributes);
-				out.println("[<a href=\"" + loginUrl + "\">" + providerName
-						+ "</a>] ");
+				JsonObject jo = new JsonObject();
+				jo.addProperty("name", providerName);
+				jo.addProperty("providerURL", providerUrl);
+				jo.addProperty("loginURL", loginURL);
+				user_auth.add(jo);
 			}
+			out.write(gson.toJson(user_auth));
+			
 		}
 	}
 }

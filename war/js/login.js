@@ -3,8 +3,8 @@ if(loaded === undefined) {
 }
 
 var f = function() {
-	$.get("/index", function(data) {
-		$("#motd").html(data);
+	$.get("/auth", function(data) {
+		console.log(data);
 	})
 }
 
