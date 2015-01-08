@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.KeyFactory;
 
 @SuppressWarnings("serial")
 public class Init extends HttpServlet {
@@ -22,11 +23,17 @@ public class Init extends HttpServlet {
         datastore.put(msg);
         
         Entity train = new Entity("Training");
-        train.setProperty("name", "running");
+        train.setProperty("title", "stamina");
+        train.setProperty("description", "gain stamina");
+        train.setProperty("domain", "running");
         datastore.put(train);
         
         Entity exercice = new Entity("Exercise");
-        exercice.setProperty("name", "running");
+        exercice.setProperty("title", "running");
+        exercice.setProperty("description", "RUN OMG");
+        exercice.setProperty("duration", "400");
+        exercice.setProperty("training", KeyFactory.keyToString(train.getKey()));
+        
         datastore.put(exercice);
         
 		resp.setStatus(200);
