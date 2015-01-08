@@ -42,17 +42,16 @@ public class Login extends HttpServlet {
 		if (user != null) {
 			JsonObject j = new JsonObject();
 			j.addProperty("name", user.getNickname());
-			j.addProperty("logout", userService.createLogoutURL(req.getRequestURI()));
-			
+			j.addProperty("logout",
+					userService.createLogoutURL("/"));
 			out.write(gson.toJson(j));
 		} else {
 			JsonArray user_auth = new JsonArray();
-			
-			out.println("Hello world! Sign in at: ");
+
 			for (String providerName : openIdProviders.keySet()) {
 				String providerUrl = openIdProviders.get(providerName);
 				String loginURL = userService.createLoginURL(
-						req.getRequestURI(), null, providerUrl, attributes);
+						"/", null, providerUrl, attributes);
 				JsonObject jo = new JsonObject();
 				jo.addProperty("name", providerName);
 				jo.addProperty("providerURL", providerUrl);
@@ -60,7 +59,7 @@ public class Login extends HttpServlet {
 				user_auth.add(jo);
 			}
 			out.write(gson.toJson(user_auth));
-			
+
 		}
 	}
 }
