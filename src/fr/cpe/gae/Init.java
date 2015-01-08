@@ -21,6 +21,14 @@ public class Init extends HttpServlet {
         msg.setProperty("content", "Welcome to our website. This message is so long that it must be cached!");
         datastore.put(msg);
         
+        Entity train = new Entity("Training");
+        train.setProperty("name", "running");
+        datastore.put(train);
+        
+        Entity exercice = new Entity("Exercise");
+        exercice.setProperty("name", "running");
+        datastore.put(exercice);
+        
 		resp.setStatus(200);
 	}
 }
