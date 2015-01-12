@@ -22,10 +22,14 @@ public class Init extends HttpServlet {
         msg.setProperty("content", "Welcome to our website. This message is so long that it must be cached!");
         datastore.put(msg);
         
+        Entity domain = new Entity("domain");
+        domain.setProperty("title", "running");
+        datastore.put(domain);
+        
         Entity train = new Entity("Training");
         train.setProperty("title", "stamina");
         train.setProperty("description", "gain stamina");
-        train.setProperty("domain", "running");
+        train.setProperty("domain", KeyFactory.keyToString(train.getKey()));
         datastore.put(train);
         
         Entity exercice = new Entity("Exercise");
@@ -33,7 +37,6 @@ public class Init extends HttpServlet {
         exercice.setProperty("description", "RUN OMG");
         exercice.setProperty("duration", "400");
         exercice.setProperty("training", KeyFactory.keyToString(train.getKey()));
-        
         datastore.put(exercice);
         
 		resp.setStatus(200);

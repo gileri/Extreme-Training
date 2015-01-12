@@ -11,7 +11,7 @@
 <!-- <link href="css/js.css" rel="stylesheet"> -->
 </head>
 <body onload="onload()">
-	<nav class="navbar navbar-inverse navbar-fixed-top">
+	<nav class="navbar navbar-inverse navbar-static-top">
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
@@ -21,13 +21,16 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Project name</a>
+				<a class="navbar-brand" href="/">Extreme Training</a>
 			</div>
-			<div id="loginbar" id="navbar" class="navbar-collapse collapse navbar-right">
-<!-- 				<form  class="navbar-form navbar-right"> -->
-<!-- 				</form> -->
-			</div>
-			<!--/.navbar-collapse -->
+			<form class="navbar-form navbar-left" role="search"
+				action="/ha-result-screen.html" method="get">
+				<input type="text" name="searchBar" class="form-control"
+					placeholder="Search" /> <input type="submit"
+					class="btn btn-default form-control" /> <a
+					href="/ha-search-screen.html" class="btn btn-default form-control">Domains</a>
+			</form>
+			<div id="loginbar" class="navbar-collapse collapse navbar-right"></div>
 		</div>
 	</nav>
 

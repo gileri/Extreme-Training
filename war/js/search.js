@@ -45,6 +45,7 @@ var f = function() {
 			$('#news_section').append(
 					$("<p></p>").html(e));
 		});
+		$('.loading_placeholder').hide();
 	})
 }
 loaded.push(f);
