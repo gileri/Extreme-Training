@@ -1,0 +1,19 @@
+TP A.P.P. Engine
+Par Mathieu Degaine & Éric Gillet
+
+URL : http://1-dot-durable-pipe-818.appspot.com/
+
+Fonctionalités réalisées
+
+- Page d'acceuil avec texte récupéré soit dans le MemCache, soit depuis le DataStore en cas de cache miss (Éric)
+- Authentification avec OpenID et affichage du nickname OpenID (Éric)
+- Recherche par mot-clé des entrainements (avec la somme des temps d'exercice affichés), et des entrainements (Mathieu)
+- 
+
+Fonctionalités non-réalisées
+
+- 
+
+Commentaires :
+
+- 

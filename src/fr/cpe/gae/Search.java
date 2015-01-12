@@ -77,8 +77,8 @@ public class Search extends HttpServlet {
         
         
         JsonObject resultat= new JsonObject();
-        resultat.add("training", trainingArray);
-        resultat.add("exercise", exerciseArray);
+        resultat.add("trainings", trainingArray);
+        resultat.add("exercises", exerciseArray);
         
         
         Gson gson = new Gson();

@@ -21,19 +21,18 @@ var f = function() {
 		var numTrainings = 0;
 		obj.trainings.forEach(function(e) {
 			var duration = 0;
-			e.forEach(function(f) {
-				duration = duration + f.duration;
+			e.exercises.forEach(function(f) {
+				duration = duration + parseInt(f.duration);
 			});
 			var dupe = $("#training_template")
 			.clone()
 			.appendTo("#training_section");
 			
 			dupe.find(".name").html(e.name);
-			dupe.find(".duration").html(duration);
+			dupe.find(".duration").prepend(Math.round(duration / 60));
 			dupe.removeClass("hidden");
 		});
-		
-		obj.exercise.forEach(function(e) {
+		obj.exercises.forEach(function(e) {
 			var dupe = $("#exercise_template")
 			.clone()
 			.appendTo("#exercise_section");
