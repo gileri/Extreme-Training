@@ -41,6 +41,10 @@ var f = function() {
 			dupe.find(".duration").html(e.duration);
 			dupe.removeClass("hidden");
 		});
+		obj.news.forEach(function(e) {
+			$('#news_section').append(
+					$("<p></p>").html(e));
+		});
 	})
 }
 loaded.push(f);

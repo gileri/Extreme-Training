@@ -1,27 +1,25 @@
 package fr.cpe.gae;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
-import com.google.appengine.api.memcache.MemcacheService;
-import com.google.appengine.api.memcache.MemcacheServiceFactory;
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.labs.repackaged.org.json.JSONArray;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 
 @SuppressWarnings("serial")
 public class Search extends HttpServlet {
@@ -36,8 +34,9 @@ public class Search extends HttpServlet {
         PreparedQuery pq1 = store.prepare(q1);
         FetchOptions fo1 = FetchOptions.Builder.withDefaults();
         List <Entity> trainings = pq1.asList(fo1);
-        JsonArray trainingArray = new JsonArray();
         
+        JsonArray trainingArray = new JsonArray();
+        JsonArray exerciseArray = new JsonArray();
         
         for (Entity entity : trainings) {
         	Filter fe = new FilterPredicate("training", Query.FilterOperator.EQUAL, KeyFactory.keyToString(entity.getKey()));
@@ -67,7 +66,7 @@ public class Search extends HttpServlet {
         FetchOptions fo2 = FetchOptions.Builder.withDefaults();
         List <Entity> exercises = pq2.asList(fo2);
         
-        JsonArray exerciseArray = new JsonArray();
+        
         for (Entity entity : exercises) {
 			JsonObject exerciseObject = new JsonObject();
 			exerciseObject.addProperty("name", (String) entity.getProperty("title"));
@@ -75,11 +74,16 @@ public class Search extends HttpServlet {
 			exerciseArray.add(exerciseObject);
 		}
         
+        JsonArray feedItems = new JsonArray();
+        
+        for (String s : RSSParser.parseRSS()) {
+        	feedItems.add(new JsonPrimitive(s));
+        }
         
         JsonObject resultat= new JsonObject();
         resultat.add("trainings", trainingArray);
         resultat.add("exercises", exerciseArray);
-        
+        resultat.add("news", feedItems);
         
         Gson gson = new Gson();
         gson.toJson(resultat);
