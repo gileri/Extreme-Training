@@ -17,6 +17,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 		<servlet-class>fr.cpe.gae.Search</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>AddTraining</servlet-name>
+		<servlet-class>fr.cpe.gae.AddTraining</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>Login</servlet-name>
 		<servlet-class>fr.cpe.gae.Login</servlet-class>
 	</servlet>
@@ -31,6 +35,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	<servlet-mapping>
 		<servlet-name>Search</servlet-name>
 		<url-pattern>/search</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AddTraining</servlet-name>
+		<url-pattern>/addtraining</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Login</servlet-name>
