@@ -11,6 +11,10 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -37,13 +41,22 @@ public class AddTraining extends HttpServlet{
 		 training.setProperty("title", title);
 		 String description = json.get("description").getAsString();
 		 training.setProperty("description", description);
+		 
+		 
 		 String domain = json.get("domain").getAsString();
-		 training.setProperty("domain", domain);
+		 
+		 
+		 Filter fe = new FilterPredicate("title", Query.FilterOperator.EQUAL, domain);
+ 		 Query qe = new Query("Domain").setFilter(fe);
+         PreparedQuery pqe = datastore.prepare(qe);
+         Entity domainEntity = pqe.asSingleEntity(); 
+		 
+		 training.setProperty("domain", KeyFactory.keyToString(domainEntity.getKey()));
 		 datastore.put(training);
 		 
 		 JsonArray arrayExercice = json.getAsJsonArray("exercices");
 		 for (JsonElement jsonElement : arrayExercice) {
-			Entity exercice = new Entity("Exercice");
+			Entity exercice = new Entity("Exercise");
 			String titleEx = jsonElement.getAsJsonObject().get("title").getAsString();
 			exercice.setProperty("title", titleEx);
 			String descriptionEx = jsonElement.getAsJsonObject().get("description").getAsString();

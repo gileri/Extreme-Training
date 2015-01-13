@@ -22,14 +22,14 @@ public class Init extends HttpServlet {
         msg.setProperty("content", "Welcome to our website. This message is so long that it must be cached!");
         datastore.put(msg);
         
-        Entity domain = new Entity("domain");
+        Entity domain = new Entity("Domain");
         domain.setProperty("title", "running");
         datastore.put(domain);
         
         Entity train = new Entity("Training");
         train.setProperty("title", "stamina");
         train.setProperty("description", "gain stamina");
-        train.setProperty("domain", KeyFactory.keyToString(train.getKey()));
+        train.setProperty("domain", KeyFactory.keyToString(domain.getKey()));
         datastore.put(train);
         
         Entity exercice = new Entity("Exercise");
