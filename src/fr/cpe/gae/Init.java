@@ -40,5 +40,6 @@ public class Init extends HttpServlet {
         datastore.put(exercice);
         
 		resp.setStatus(200);
+		resp.getWriter().write("Database initialized");
 	}
 }

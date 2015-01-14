@@ -10,22 +10,22 @@ function getUrlParameter(sParam) {
 }
 
 var f = function() {
-	time = date.getTime();
-	date = new Date('5.10.2012 00:20:00');
-	$(".countdown").flipcountdown({
-		speedFlip : 60,
-		tick : function() {
-			currentTime = time - 1000;
-			time = currentTime;
-			date = new Date(currentTime);
-			return date;
-		}
-	});
+//	current = new Date()
+//	time = date.getTime();
+//	$(".countdown").flipcountdown({
+//		speedFlip : 60,
+//		tick : function() {
+//			currentTime = time - 1000;
+//			time = currentTime;
+//			date = new Date(currentTime);
+//			return date;
+//		}
+//	});
 	var key = getUrlParameter("key");
 	$.getJSON("/training", {
 		key : key
 	}).done(function(data) {
-		obj.exercises.forEach(function(e) {
+		data.exercises.forEach(function(e) {
 			var ex = $("#ex_template").clone().appendTo("#ex_section");
 
 			ex.find("#ex_title").html(e.title);

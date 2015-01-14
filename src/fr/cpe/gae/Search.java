@@ -14,10 +14,9 @@ import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
-import com.google.appengine.api.datastore.Query.CompositeFilter;
-import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -110,6 +109,7 @@ public class Search extends HttpServlet {
 			exerciseObject.addProperty("name", (String) entity.getProperty("title"));
 			exerciseObject.addProperty("duration", (String) entity.getProperty("duration"));
 			exerciseObject.addProperty("key", KeyFactory.keyToString(entity.getKey()));
+			exerciseObject.addProperty("keytraining", (String) entity.getProperty("training"));
 			exerciseArray.add(exerciseObject);
 		}
         

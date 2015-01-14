@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+@SuppressWarnings("serial")
 public class Training extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
@@ -70,7 +71,7 @@ public class Training extends HttpServlet {
 			exerciseObject.addProperty("duration", (String) entity.getProperty("duration"));
 			exerciseArray.add(exerciseObject);
 		}
-        trainObj.add("exercices", exerciseArray);
+        trainObj.add("exercises", exerciseArray);
         
         Gson gson = new Gson();
         String jsonRes = gson.toJson(trainObj);

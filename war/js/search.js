@@ -43,7 +43,7 @@ var f = function() {
 			dupe.find(".name").html(e.name);
 			dupe.find(".duration").html(Math.round(e.duration/60) + " min");
 			dupe.find("a")
-					.prop("href", "/ha-training-detail.html?key=" + e.key);
+					.prop("href", "/ha-training-detail.html?key=" + e.keytraining);
 			dupe.removeClass("hidden");
 		});
 		obj.news.forEach(function(e) {
