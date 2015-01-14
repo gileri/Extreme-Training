@@ -1,7 +1,3 @@
-if (loaded === undefined) {
-	var loaded = [];
-}
-
 var f = function() {
 	$.getJSON("/auth", function(data) {
 		if(data.logout !== undefined) {

@@ -16,10 +16,11 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonElement;
 
+@SuppressWarnings("serial")
 public class AddTraining extends HttpServlet{
 	public void doPost (HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
@@ -51,10 +52,11 @@ public class AddTraining extends HttpServlet{
          PreparedQuery pqe = datastore.prepare(qe);
          Entity domainEntity = pqe.asSingleEntity(); 
 		 
+         // TODO Handle error when non-existant domain
 		 training.setProperty("domain", KeyFactory.keyToString(domainEntity.getKey()));
 		 datastore.put(training);
 		 
-		 JsonArray arrayExercice = json.getAsJsonArray("exercices");
+		 JsonArray arrayExercice = json.getAsJsonArray("exercises");
 		 for (JsonElement jsonElement : arrayExercice) {
 			Entity exercice = new Entity("Exercise");
 			String titleEx = jsonElement.getAsJsonObject().get("title").getAsString();
