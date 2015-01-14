@@ -47,12 +47,15 @@ public class Search extends HttpServlet {
             
             JsonObject trainObj = new JsonObject();
             trainObj.addProperty("name", (String) entity.getProperty("title"));
+            trainObj.addProperty("key", KeyFactory.keyToString(entity.getKey()));
             
             JsonArray trainingExercisesJSON = new JsonArray();
             for (Entity entity2 : trainingExercises) {
             	JsonObject trainingExercise = new JsonObject();
             	trainingExercise.addProperty("name", (String) entity2.getProperty("title"));
             	trainingExercise.addProperty("duration", (String) entity2.getProperty("duration"));
+            	trainingExercise.addProperty("key", KeyFactory.keyToString(entity2.getKey()));
+            	trainingExercise.addProperty("keytraining", (String) entity2.getProperty("training"));
             	trainingExercisesJSON.add(trainingExercise);
 			}
             trainObj.add("exercises", trainingExercisesJSON);
@@ -71,6 +74,7 @@ public class Search extends HttpServlet {
 			JsonObject exerciseObject = new JsonObject();
 			exerciseObject.addProperty("name", (String) entity.getProperty("title"));
 			exerciseObject.addProperty("duration", (String) entity.getProperty("duration"));
+			exerciseObject.addProperty("key", KeyFactory.keyToString(entity.getKey()));
 			exerciseArray.add(exerciseObject);
 		}
         
