@@ -4,14 +4,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bootstrap 101 Template</title>
+<title>Extreme Training - Add a training</title>
 
-<!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="lib/select2-3.5.1/select2.css" rel="stylesheet">
 
 <link href="css/js.css" rel="stylesheet">
-
 
 </head>
 <body onload="onload()">
@@ -50,9 +48,8 @@
 			</div>
 			<div class=" col-md-3 col-sm-4 hidden-xs">
 				<div class=" col-md-4 col-sm-4 hidden-xs">
-					<p id="totalTimeValue">
-						<span class="glyphicon glyphicon-time"></span> 0 min
-					</p>
+				<span class="glyphicon glyphicon-time"></span>
+					<span id="totalTimeValue"></span>
 				</div>
 			</div>
 		</div>
@@ -74,7 +71,6 @@
 				<p>
 					<select id="training_domain" class="select2-container populate"
 						style="width: 100%">
-<!-- 						<option value="running">Running</option> -->
 					</select>
 				</p>
 			</div>
@@ -176,16 +172,9 @@
 		</div>
 	</nav>
 
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="js/jquery-1.11.1.min.js"></script>
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="js/bootstrap.min.js"></script>
 	<script src="lib/select2-3.5.1/select2.min.js"></script>
-	<script>
-		$(document).ready(function() {
-			$("#training_domain").select2();
-		});
-	</script>
 	<script src="js/init_loaded.js"></script>
 	<script src="js/login.js"></script>
 	<script src="js/addtraining.js"></script>

@@ -1,6 +1,18 @@
 var training_exercises = [];
 
+var recalculate_duration = function() {
+	var duration = 0;
+	training_exercises.forEach(function(t) {
+		duration += t.duration;
+	});
+	$('#totalTimeValue').html(Math.round(duration/60) + ' min');
+	return duration;
+}
+
 var f = function() {
+	$("#training_domain").select2();
+	
+	recalculate_duration();
 
 	$.getJSON('/domains').done(function(data) {
 		data.forEach(function(e) {
@@ -12,6 +24,7 @@ var f = function() {
 	$('#exercise_section').on('click', '.exercise_delete', function(e) {
 		var id_ex = $(this).attr('data-id_ex');
 		$('.exercise[data-id_ex=' + id_ex + ']').remove();
+		recalculate_duration();
 	});
 
 	$('#add_exercise').on(
@@ -20,9 +33,9 @@ var f = function() {
 				var title = $('#new_ex_title').val();
 				var description = $('#new_ex_desc').val();
 
-				var hours = $('#new_ex_hours').val();
-				var minutes = $('#new_ex_minutes').val();
-				var seconds = $('#new_ex_seconds').val();
+				var hours = parseInt($('#new_ex_hours').val());
+				var minutes = parseInt($('#new_ex_minutes').val());
+				var seconds = parseInt($('#new_ex_seconds').val());
 				var duration = hours * 3600 + minutes * 60 + seconds;
 
 				var exercise = $('#exercise_template').clone();
@@ -32,11 +45,9 @@ var f = function() {
 						training_exercises.length + 1);
 				exercise.find('.exercise_title').text(title);
 				exercise.find('.exercise_desc').text(description);
-				exercise.find('.exercise_time').text(
-						hours * 60 + minutes + Math.round(seconds / 60)
-								+ ' min');
+				exercise.find('.exercise_time').text(Math.round(duration/60) + ' min');
 				exercise.find('.exercise_delete').attr('data-id_ex',
-						training_exercises.length)
+						training_exercises.length);
 				exercise.removeClass("hidden");
 
 				$('#exercise_section').append(exercise);
@@ -46,6 +57,7 @@ var f = function() {
 					description : description,
 					duration : duration
 				});
+				recalculate_duration();
 			});
 
 	$('#upload_training').on('click', function(e) {
