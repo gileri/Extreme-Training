@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Search Results</title>
 
-<!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/js.css" rel="stylesheet">
 
@@ -26,10 +25,14 @@
 			</div>
 			<form class="navbar-form navbar-left" role="search"
 				action="/ha-result-screen.html" method="get">
-				<input type="text" id="searchBar" name="searchBar" class="form-control"
-					placeholder="Search" /> <input type="submit"
-					class="btn btn-default form-control" /> <a
-					href="/ha-search-screen.html" class="btn btn-default form-control">Domains</a>
+				<input type="text" id="searchBar" name="searchBar"
+					class="form-control" placeholder="Search" /> <label
+					class="text-primary control-label" for="domain">In: </label><input
+					class="btn-xs" type="text" name="domain" value="running" /> <input
+					type="submit" class="btn btn-default form-control" /> <a
+					href="/ha-search-screen.html" id="domains_link"
+					class="btn btn-default form-control">Domains</a>
+
 			</form>
 			<div id="loginbar" class="navbar-collapse collapse navbar-right"></div>
 		</div>
@@ -41,12 +44,11 @@
 			<span class="loading_placeholder">Loading ...</span>
 			<div id="training_template" class="hidden">
 				<div class=" col-md-6 col-sm-6 col-xs-6">
-					<button type="submit" class="btn btn-link name"></button>
+					<a href="" class="btn btn-link name"></a>
 				</div>
 				<div class="col-md-6 col-sm-6 col-xs-6">
-					<label class="btn duration"> <span
-						class="glyphicon glyphicon-time"></span>
-					</label>
+					<span class="glyphicon glyphicon-time"></span>
+					<label class="btn duration"></label>
 				</div>
 			</div>
 		</div>
@@ -57,12 +59,11 @@
 			<span class="loading_placeholder">Loading ...</span>
 			<div id="exercise_template" class="hidden">
 				<div class=" col-md-6 col-sm-6 col-xs-6">
-					<button type="submit" class="btn btn-link name"></button>
+					<a href="" class="btn btn-link name"></a>
 				</div>
 				<div class=" col-md-6 col-sm-6 col-xs-6">
-					<label class="btn duration"> <span
-						class="glyphicon glyphicon-time"></span> 10 min.
-					</label>
+					<span class="glyphicon glyphicon-time"></span>
+					<label class="btn duration"></label>
 				</div>
 			</div>
 		</div>
@@ -74,27 +75,23 @@
 		</div>
 	</div>
 
-
-	<!-- ------------------------------------------- FOOTER ZONE ------------------------------------------- -->
 	<nav class="navbar navbar-inverse navbar-fixed-bottom"
 		role="navigation">
 		<div class=" col-md-10 col-sm-10 col-xs-10 ">
 			<form class="navbar-form navbar-left" style="width: 100%"
 				role="search">
-				<a href="/ha-addTraining.html" class="btn btn-danger">
-					<span class="glyphicon glyphicon-plus-sign"></span>
-				</a>
-				<label style="color: white">Add a Training Plan</label>
+				<a href="/ha-addTraining.html" class="btn btn-danger"> <span
+					class="glyphicon glyphicon-plus-sign"></span>
+				</a> <label style="color: white">Add a Training Plan</label>
 			</form>
 		</div>
 	</nav>
-	<!-- ------------------------------------------- FOOTER ZONE END ------------------------------------------- -->
 
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="js/jquery-1.11.1.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="js/bootstrap.min.js"></script>
-	
+
 	<script src="js/init_loaded.js"></script>
 	<script src="js/login.js"></script>
 	<script src="js/search.js"></script>
