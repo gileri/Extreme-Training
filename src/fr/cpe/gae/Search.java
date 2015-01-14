@@ -16,6 +16,8 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
+import com.google.appengine.api.datastore.Query.CompositeFilter;
+import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -26,11 +28,44 @@ public class Search extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws IOException {
-		String searchBar =(String)req.getParameter("searchBar");
+		
 		DatastoreService store = DatastoreServiceFactory.getDatastoreService();
 		
-		Filter f1 = new FilterPredicate("title", Query.FilterOperator.EQUAL,searchBar);
-		Query q1 = new Query("Training").setFilter(f1);
+		
+		String searchBar =(String)req.getParameter("searchBar");
+		String domainSelection = (String)req.getParameter("domain");
+		Filter fsearch = null;
+		Filter fdomain = null;
+		Query q1 = new Query("");
+		
+		if (searchBar != null){
+			
+			fsearch = new FilterPredicate("title", Query.FilterOperator.EQUAL,searchBar);
+			if (domainSelection == null)
+				q1 = new Query("Training").setFilter(fsearch);
+			
+		}
+		if (domainSelection != null){
+			
+			Filter fk = new FilterPredicate("title", Query.FilterOperator.EQUAL,domainSelection);
+			Query qk = new Query("Domain").setFilter(fk);
+	        PreparedQuery pqk = store.prepare(qk);
+	        Entity domainEntity = pqk.asSingleEntity();
+	        
+	        if (domainEntity != null){
+	        	fdomain = new FilterPredicate("domain", Query.FilterOperator.EQUAL, KeyFactory.keyToString(domainEntity.getKey()));
+	        	if (searchBar == null)
+	        		q1 = new Query("Training").setFilter(fdomain);
+	        }
+	        
+		}
+		
+		if (fsearch != null && fdomain != null){
+			Filter fc = CompositeFilterOperator.and(fsearch, fdomain);
+			q1 = new Query("Training").setFilter(fc);
+		}
+		
+		
         PreparedQuery pq1 = store.prepare(q1);
         FetchOptions fo1 = FetchOptions.Builder.withDefaults();
         List <Entity> trainings = pq1.asList(fo1);
@@ -47,12 +82,15 @@ public class Search extends HttpServlet {
             
             JsonObject trainObj = new JsonObject();
             trainObj.addProperty("name", (String) entity.getProperty("title"));
+            trainObj.addProperty("key", KeyFactory.keyToString(entity.getKey()));
             
             JsonArray trainingExercisesJSON = new JsonArray();
             for (Entity entity2 : trainingExercises) {
             	JsonObject trainingExercise = new JsonObject();
             	trainingExercise.addProperty("name", (String) entity2.getProperty("title"));
             	trainingExercise.addProperty("duration", (String) entity2.getProperty("duration"));
+            	trainingExercise.addProperty("key", KeyFactory.keyToString(entity2.getKey()));
+            	trainingExercise.addProperty("keytraining", (String) entity2.getProperty("training"));
             	trainingExercisesJSON.add(trainingExercise);
 			}
             trainObj.add("exercises", trainingExercisesJSON);
@@ -71,6 +109,7 @@ public class Search extends HttpServlet {
 			JsonObject exerciseObject = new JsonObject();
 			exerciseObject.addProperty("name", (String) entity.getProperty("title"));
 			exerciseObject.addProperty("duration", (String) entity.getProperty("duration"));
+			exerciseObject.addProperty("key", KeyFactory.keyToString(entity.getKey()));
 			exerciseArray.add(exerciseObject);
 		}
         
