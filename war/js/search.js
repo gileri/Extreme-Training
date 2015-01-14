@@ -31,7 +31,7 @@ var f = function() {
 					"#training_section");
 
 			dupe.find(".name").html(e.name);
-			dupe.find(".duration").prepend(Math.round(duration / 60));
+			dupe.find(".duration").prepend(Math.round(duration / 60) + " min");
 			dupe.find("a")
 					.prop("href", "/ha-training-detail.html?key=" + e.key);
 			dupe.removeClass("hidden");
@@ -41,7 +41,7 @@ var f = function() {
 					"#exercise_section");
 
 			dupe.find(".name").html(e.name);
-			dupe.find(".duration").html(e.duration);
+			dupe.find(".duration").html(Math.round(e.duration/60) + " min");
 			dupe.find("a")
 					.prop("href", "/ha-training-detail.html?key=" + e.key);
 			dupe.removeClass("hidden");
