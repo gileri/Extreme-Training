@@ -12,15 +12,22 @@ function getUrlParameter(sParam) {
 var f = function() {
 	var search = getUrlParameter("searchBar");
 	var domain = getUrlParameter("domain");
+	
+	var data = {};
+	
+	if(search) {
+		data.searchBar = search;
+		$('#searchBar').val(search);
+	}
 	if(domain) {
-		
+		data.domain = domain;
+		$('#domain_input').attr('value', domain);
+		$('#domain_input_hidden').attr('value', domain);
 	}
 	$("#searchBar").val(search);
-	$.post("/search", {
-		searchBar : search
-	}, function(data) {
+	$.post("/search", data, function(data) {
 		var obj = $.parseJSON(data);
-
+		
 		var numTrainings = 0;
 		obj.trainings.forEach(function(e) {
 			var duration = 0;

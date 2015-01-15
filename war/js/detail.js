@@ -10,27 +10,20 @@ function getUrlParameter(sParam) {
 }
 
 var f = function() {
-//	current = new Date()
-//	time = date.getTime();
-//	$(".countdown").flipcountdown({
-//		speedFlip : 60,
-//		tick : function() {
-//			currentTime = time - 1000;
-//			time = currentTime;
-//			date = new Date(currentTime);
-//			return date;
-//		}
-//	});
 	var key = getUrlParameter("key");
 	$.getJSON("/training", {
 		key : key
 	}).done(function(data) {
+		$("#training_title").html(data.title);
+		$("#training_description").html(data.description);
+		
 		data.exercises.forEach(function(e) {
 			var ex = $("#ex_template").clone().appendTo("#ex_section");
+			ex.removeAttr('id');
 
-			ex.find("#ex_title").html(e.title);
-			ex.find("#ex_desc").html(e.description);
-			ex.find("#ex_duration").html(e.duration);
+			ex.find(".ex_title").html(e.title);
+			ex.find(".ex_desc").html(e.description);
+			ex.find(".ex_duration").html(Math.round(e.duration/60) + " min");
 			ex.removeClass("hidden");
 		});
 		$('#loading_placeholder').hide();

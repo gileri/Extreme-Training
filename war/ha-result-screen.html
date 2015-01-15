@@ -26,11 +26,14 @@
 			<form class="navbar-form navbar-left" role="search"
 				action="/ha-result-screen.html" method="get">
 				<input type="text" id="searchBar" name="searchBar"
-					class="form-control" placeholder="Search" /> <label
-					class="text-primary control-label" for="domain">In: </label><input
-					class="btn-xs" type="text" name="domain" value="running" /> <input
-					type="submit" class="btn btn-default form-control" /> <a
-					href="/ha-search-screen.html" id="domains_link"
+					class="form-control" placeholder="Search" />
+				<label class="text-primary control-label" for="domain">In: </label>
+				<input class="btn-xs" type="text" disabled id="domain_input"
+					value="" />
+				<input class="btn-xs" name="domain" type="hidden"
+					id="domain_input_hidden" value="" />
+				<input type="submit" class="btn btn-default form-control" />
+				<a href="/ha-search-screen.html" id="domains_link"
 					class="btn btn-default form-control">Domains</a>
 
 			</form>
@@ -47,8 +50,8 @@
 					<a href="" class="btn btn-link name"></a>
 				</div>
 				<div class="col-md-6 col-sm-6 col-xs-6">
-					<span class="glyphicon glyphicon-time"></span>
-					<label class="btn duration"></label>
+					<span class="glyphicon glyphicon-time"></span> <label
+						class="btn duration"></label>
 				</div>
 			</div>
 		</div>
@@ -62,8 +65,8 @@
 					<a href="" class="btn btn-link name"></a>
 				</div>
 				<div class=" col-md-6 col-sm-6 col-xs-6">
-					<span class="glyphicon glyphicon-time"></span>
-					<label class="btn duration"></label>
+					<span class="glyphicon glyphicon-time"></span> <label
+						class="btn duration"></label>
 				</div>
 			</div>
 		</div>
