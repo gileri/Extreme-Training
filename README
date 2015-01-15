@@ -7,8 +7,10 @@ Fonctionalités réalisées
 
 - Page d'acceuil avec texte récupéré soit dans le MemCache, soit depuis le DataStore en cas de cache miss (Éric)
 - Authentification avec OpenID et affichage du nickname OpenID (Éric)
-- Recherche par mot-clé des entrainements (avec la somme des temps d'exercice affichés)  et des entrainements (Mathieu)
-- 
+- Recherche par mot-clé des entrainements (avec la somme des temps d'exercice affichés), et des entrainements (Mathieu)
+- Ajout d'un entrainement et de ses exercices. L'ajout se fait grâce à une TASKQUEUE (Mathieu).
+- Affichage des domaines dans la page de recherche (Eric).
+- Affichage détaillé d'un entrainement (Eric client, Mathieu serveur)
 
 Fonctionalités non-réalisées
 
