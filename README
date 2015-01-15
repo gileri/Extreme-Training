@@ -7,13 +7,16 @@ Fonctionalités réalisées
 
 - Page d'acceuil avec texte récupéré soit dans le MemCache, soit depuis le DataStore en cas de cache miss (Éric)
 - Authentification avec OpenID et affichage du nickname OpenID (Éric)
-- Recherche par mot-clé des entrainements (avec la somme des temps d'exercice affichés), et des entrainements (Mathieu)
+- Recherche par mot-clé des entrainements (avec la somme des temps d'exercice affichés)  et des entrainements (Mathieu)
 - 
 
 Fonctionalités non-réalisées
 
-- 
+- Timers d'exercices
+- Validation d'exercices réalisés
+- Profil utilisateur
 
 Commentaires :
 
-- 
+- Au premier lancement de l'application, initialiser le jeu de données en appellant l'URL /init en GET. Ne pas appeller cette URL plusieurs fois.
+- Recherches "intéressantes" : "running", "stamina", domaine "running"
